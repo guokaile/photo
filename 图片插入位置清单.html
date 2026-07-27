@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>论文图片插入位置清单 — DATA2600953</title>
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --text: #222;
+    --muted: #666;
+    --ch2: #2166ac;
+    --ch3: #4daf4a;
+    --ch4: #d6604d;
+    --ch5: #984ea3;
+    --ch6: #ff7f00;
+    --new-badge: #1a9641;
+    --existing-badge: #0571b0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height:1.6; padding: 24px 16px;
+  }
+  .container { max-width: 1200px; margin:0 auto; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white; padding: 32px 40px; border-radius: 12px; margin-bottom: 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+  }
+  .header h1 { font-size: 1.8em; margin-bottom:6px; }
+  .header .sub { opacity:.75; font-size: .95em; }
+  .header .stats { display:flex; gap:24px; margin-top:16px; flex-wrap:wrap; }
+  .header .stat { background:rgba(255,255,255,.12); padding:8px 18px; border-radius:20px; font-size:.9em; }
+
+  /* Chapter sections */
+  .chapter { margin-bottom: 32px; }
+  .chapter-title {
+    font-size: 1.35em; font-weight: 700; padding: 10px 20px; border-radius: 8px 8px 0 0;
+    color: white; display: flex; align-items: center; gap: 10px;
+  }
+  .ch2 .chapter-title { background: var(--ch2); }
+  .ch3 .chapter-title { background: var(--ch3); }
+  .ch4 .chapter-title { background: var(--ch4); }
+  .ch5 .chapter-title { background: var(--ch5); }
+  .ch6 .chapter-title { background: var(--ch6); }
+
+  .chapter-body {
+    background: var(--card-bg); border-radius: 0 0 8px 8px;
+    border: 1px solid #e0e0e0; border-top: none; overflow: hidden;
+  }
+
+  /* Figure rows */
+  .fig-row {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 14px 20px; border-bottom: 1px solid #eee;
+    transition: background .15s;
+  }
+  .fig-row:last-child { border-bottom: none; }
+  .fig-row:hover { background: #fafafa; }
+  .fig-row.sub { background: #f8f9fa; padding-left: 52px; }
+
+  .fig-number {
+    font-weight: 800; font-size: 1.05em; min-width: 64px; white-space: nowrap;
+    padding: 3px 10px; border-radius: 6px; text-align: center;
+  }
+  .ch2 .fig-number { background: #e3edf7; color: var(--ch2); }
+  .ch3 .fig-number { background: #e8f5e2; color: var(--ch3); }
+  .ch4 .fig-number { background: #fde8e5; color: var(--ch4); }
+  .ch5 .fig-number { background: #f0e6f5; color: var(--ch5); }
+  .ch6 .fig-number { background: #fff3e6; color: var(--ch6); }
+
+  .fig-info { flex:1; min-width:0; }
+  .fig-filename { font-family: 'SF Mono', 'Consolas', 'Courier New', monospace; font-size: .85em;
+                   color: var(--muted); word-break: break-all; margin-bottom: 3px; }
+  .fig-desc { font-size: .92em; }
+  .fig-location { font-size: .82em; color: var(--muted); margin-top: 2px; }
+
+  .fig-latex {
+    flex: 0 0 auto; max-width: 380px;
+    font-family: 'SF Mono', 'Consolas', 'Courier New', monospace; font-size: .72em;
+    background: #2d2d2d; color: #e6db74; padding: 6px 10px; border-radius: 5px;
+    overflow-x: auto; white-space: pre-wrap; word-break: break-all; line-height:1.5;
+  }
+
+  /* Badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: .75em; font-weight:600;
+           margin-left: 6px; vertical-align: middle; }
+  .badge.new { background: #d4edda; color: #155724; }
+  .badge.old { background: #cce5ff; color: #004085; }
+
+  /* Legend */
+  .legend { display:flex; gap:16px; flex-wrap:wrap; margin-bottom: 24px; padding: 12px 20px;
+            background: white; border-radius: 8px; border:1px solid #e0e0e0; }
+  .legend .dot { display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .fig-row { flex-direction: column; gap: 6px; }
+    .fig-latex { max-width: 100%; }
+    .header { padding: 20px 24px; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; padding: 0; }
+    .header { box-shadow: none; }
+    .fig-row { break-inside: avoid; }
+    .fig-latex { background: #f0f0f0; color: #333; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ========= HEADER ========= -->
+<div class="header">
+  <h1>论文图片插入位置清单</h1>
+  <div class="sub">Team# DATA2600953 — 基于多维度健康行为特征的早起预测与健康评估模型研究</div>
+  <div class="stats">
+    <span class="stat">图片总数：36 张</span>
+    <span class="stat">新生成：<span style="color:#a6d96a">●</span> 9 张</span>
+    <span class="stat">已有：<span style="color:#abd9e9">●</span> 27 张</span>
+    <span class="stat">插入点：20 处</span>
+    <span class="stat">覆盖章节：第2−6章</span>
+  </div>
+</div>
+
+<!-- ========= LEGEND ========= -->
+<div class="legend">
+  <div><span class="dot" style="background:var(--ch2)"></span> 第2章 数据探索</div>
+  <div><span class="dot" style="background:var(--ch3)"></span> 第3章 特征工程</div>
+  <div><span class="dot" style="background:var(--ch4)"></span> 第4章 模型构建</div>
+  <div><span class="dot" style="background:var(--ch5)"></span> 第5章 结果分析</div>
+  <div><span class="dot" style="background:var(--ch6)"></span> 第6章 可解释性</div>
+  <div style="margin-left:16px"><span class="badge new">新生成</span> 本次工作流产出</div>
+  <div><span class="badge old">已有</span> 此前已存在于 figs/</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- CHAPTER 2 -->
+<!-- ================================================================ -->
+<div class="chapter ch2">
+  <div class="chapter-title">第2章 · 数据描述与探索性分析</div>
+  <div class="chapter-body">
+
+    <div class="fig-row">
+      <div class="fig-number">图 2-1</div>
+      <div class="fig-info">
+        <div class="fig-filename">斯皮尔曼相关性热力图.png <span class="badge old">已有</span></div>
+        <div class="fig-desc">42特征 Spearman 秩相关下三角热力图（|r|>0.7 标注数值，显式顺序编码）</div>
+        <div class="fig-location">📍 §2.4 特征相关性分析 — 正文首段"图2-1展示了主要特征的..."之后</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=\textwidth]{figs/斯皮尔曼相关性热力图.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 2-2</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig2-2_Health_Score分布_KMeans边界.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">Health_Score 直方图 (左) + KDE (右)，叠加 KMeans 聚类中心 [54.9, 68.5, 79.7, 91.7] 和分箱边界 [62, 74, 86]</div>
+        <div class="fig-location">📍 §3.5.2 KMeans聚类 — 聚类中心表格之后，"取相邻簇中心的算术中点作为分箱边界"之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.92\textwidth]{figs/Fig2-2_Health_Score分布_KMeans边界.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 2-3</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig2-3_Wake_Up_Time双类零重叠分布.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">Wake_Up_Minutes 按 Early_Waker 分面的双面板直方图；标注 6:30 (390min) 阈值红线；Yes∈[240,389] vs No∈[390,660] 零重叠</div>
+        <div class="fig-location">📍 §2.6 发现一 — "两类区间零重叠" 句之后，公式 (2-1) 之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.85\textwidth]{figs/Fig2-3_Wake_Up_Time双类零重叠分布.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 2-4</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig2-4_Wellness_Category_Health_Score箱线图.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">四类 Wellness_Category (Poor/Average/Good/Excellent) 的 Health_Score 箱线图 + 散点叠加；标注确定性分箱边界 [45, 65, 80]；区间零重叠</div>
+        <div class="fig-location">📍 §2.6 发现二 — "区间分布为" 列表之后，公式 (2-2) 之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.9\textwidth]{figs/Fig2-4_Wellness_Category_Health_Score箱线图.png}</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- CHAPTER 3 -->
+<!-- ================================================================ -->
+<div class="chapter ch3">
+  <div class="chapter-title">第3章 · 特征工程</div>
+  <div class="chapter-body">
+
+    <div class="fig-row">
+      <div class="fig-number">图 3-1</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig3-1_特征块消融筛选结果.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">3任务 × 2模型 = 6面 特征块消融 ΔACC 条形图；绿色=KEEP，灰色=DROP，橙色=GRAY_DROP；标注 2×STD 保留判据线</div>
+        <div class="fig-location">📍 §3.4.2 筛选结果 — 表3-2 之后，"T1 两机六块全部未通过判据" 段落之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=\textwidth]{figs/Fig3-1_特征块消融筛选结果.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 3-2</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig3-2_T2分箱策略四方案对比.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">四策略 (endogenous/kmeans/eqfreq/clinical) × 全特征/无泄漏 × XGB/LR 分组柱状图；标注 100%→88% 的12pp泄露量级</div>
+        <div class="fig-location">📍 §3.5.3 四种策略的对比分析 — 表3-3 之后，"四条关键观察" 列表之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.95\textwidth]{figs/Fig3-2_T2分箱策略四方案对比.png}</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- CHAPTER 4 -->
+<!-- ================================================================ -->
+<div class="chapter ch4">
+  <div class="chapter-title">第4章 · 模型构建与调优</div>
+  <div class="chapter-body">
+
+    <div class="fig-row">
+      <div class="fig-number">图 4-1</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig4-1_模型矩阵ACC热力图.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">7模型 (LR/SVM/RF/HistGB/XGB/LGBM/MLP) × 6列 (3任务×2赛道) ACC热力图；标注每列最优值；一目了然 LR 在无泄漏赛道全面反超树模型</div>
+        <div class="fig-location">📍 §4.2.2 无泄漏赛道 — 表4-2 之后，"两个40%权重任务上 LR 在 ACC 与 macro-F1 双指标均居首" 段落之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=\textwidth]{figs/Fig4-1_模型矩阵ACC热力图.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 4-2</div>
+      <div class="fig-info">
+        <div class="fig-filename">调参收敛曲线_T2/T3_LR/HistGB.png ×4 <span class="badge old">已有</span></div>
+        <div class="fig-desc">2×2 subfigure：四个 Optuna 调参作业的收敛曲线；所有作业均在 50 trials 触发收敛判据</div>
+        <div class="fig-location">📍 §4.3.3 调参结果 — 表4-4 之后，"三点观察" 列表之前</div>
+      </div>
+      <div class="fig-latex">% 建议用 subfigure 并排
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/调参收敛曲线_T2_LR.png}
+\end{subfigure}
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/调参收敛曲线_T2_HistGB.png}
+\end{subfigure}
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/调参收敛曲线_T3_LR.png}
+\end{subfigure}
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/调参收敛曲线_T3_HistGB.png}
+\end{subfigure}
+\caption{图4-2 调参收敛曲线}\end{figure}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 4-3</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig4-3_学习曲线_LR_vs_Tree.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">T2 无泄漏赛道 LR vs HistGB 学习曲线 (10%→100%训练集)；LR 在所有样本量下优于 HistGB，差距已收敛；验证"结论不随训练规模反转"</div>
+        <div class="fig-location">📍 §5.6 稳健性讨论 — "样本量稳健性" bullet 段落内，"Day-2 D4 学习曲线显示..." 之后</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.85\textwidth]{figs/Fig4-3_学习曲线_LR_vs_Tree.png}</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- CHAPTER 5 -->
+<!-- ================================================================ -->
+<div class="chapter ch5">
+  <div class="chapter-title">第5章 · 结果分析与稳健性讨论</div>
+  <div class="chapter-body">
+
+    <div class="fig-row">
+      <div class="fig-number">图 5-1</div>
+      <div class="fig-info">
+        <div class="fig-filename">混淆矩阵_T1/T2/T3.png ×3 <span class="badge old">已有</span></div>
+        <div class="fig-desc">三张混淆矩阵并排（T1 T2 T3）；T2/T3 严格三对角——零跨级错误；T1 误判(45)与漏判(38)对称</div>
+        <div class="fig-location">📍 §5.2 混淆矩阵结构分析 — bullet 列表之后，"形式化地，三对角性质定义为" 公式 (5-2) 之前</div>
+      </div>
+      <div class="fig-latex">\begin{figure}[H]\centering
+\includegraphics[width=0.32\textwidth]{figs/混淆矩阵_T1.png}
+\includegraphics[width=0.32\textwidth]{figs/混淆矩阵_T2.png}
+\includegraphics[width=0.32\textwidth]{figs/混淆矩阵_T3.png}
+\caption{图5-1 混淆矩阵（左:T1, 中:T2 KMeans分箱, 右:T3）}\end{figure}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 5-2</div>
+      <div class="fig-info">
+        <div class="fig-filename">T1_ROC.png <span class="badge old">已有</span></div>
+        <div class="fig-desc">T1 无泄漏赛道 XGB 的 ROC 曲线，AUC=0.9995</div>
+        <div class="fig-location">📍 §5.3 T1 ROC与AUC — "AUC=0.9995" 句后</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.5\textwidth]{figs/T1_ROC.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 5-3</div>
+      <div class="fig-info">
+        <div class="fig-filename">T2边界距离分布.png <span class="badge old">已有</span></div>
+        <div class="fig-desc">误分类样本到最近分箱边界的距离分布；92.3% 的错误集中在边界 ±5 分内</div>
+        <div class="fig-location">📍 §5.5 T2边界样本分析 — 公式 (5-5) 之后，"这一结果是连续-离散映射的预期行为" 之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.7\textwidth]{figs/T2边界距离分布.png}</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- CHAPTER 6 -->
+<!-- ================================================================ -->
+<div class="chapter ch6">
+  <div class="chapter-title">第6章 · 特征重要性与模型融合</div>
+  <div class="chapter-body">
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-1</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig6-1_模型融合ACC对比.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">T2/T3 融合组合 vs 单模型基线：水平条形图 + 误差线；绿色=通过 +0.5pp 采纳判据；T2 采纳 2:1:1 融合，T3 放弃融合</div>
+        <div class="fig-location">📍 §6.1 模型融合实验 — 表6-1 之后，"裁决：T2 采纳融合" 段落之前</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=\textwidth]{figs/Fig6-1_模型融合ACC对比.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-2</div>
+      <div class="fig-info">
+        <div class="fig-filename">shap_T1_beeswarm + shap_T1/T2/T3_honest_bar.png ×4 <span class="badge old">已有</span></div>
+        <div class="fig-desc">无泄漏赛道 SHAP 特征重要性：T1 beeswarm + T1/T2/T3 mean|SHAP| 条形图</div>
+        <div class="fig-location">📍 §6.3 无泄漏最终模型的特征重要性 — 表6-2 之后</div>
+      </div>
+      <div class="fig-latex">% 2×2 subfigure，beeswarm 占左上，三个 bar 各占其余象限
+\begin{figure}[H]\centering
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/shap_T1_beeswarm.png}
+\end{subfigure}
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/shap_T1_honest_bar.png}
+\end{subfigure}
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/shap_T2_honest_bar.png}
+\end{subfigure}
+\begin{subfigure}{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figs/shap_T3_honest_bar.png}
+\end{subfigure}
+\caption{图6-2 无泄漏赛道 SHAP 特征重要性}\end{figure}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-3</div>
+      <div class="fig-info">
+        <div class="fig-filename">Fig6-3_Permutation_Importance跨任务Top15.png <span class="badge new">新生成</span></div>
+        <div class="fig-desc">T1/T2/T3 三任务并排 Permutation Importance Top-15；按特征类别着色（睡眠/运动/饮食/生理/心理）；验证与 SHAP 排序一致</div>
+        <div class="fig-location">📍 §6.3 表6-3 之后，"与 Permutation 的交叉验证一致性" bullet 段落内</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=\textwidth]{figs/Fig6-3_Permutation_Importance跨任务Top15.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-4</div>
+      <div class="fig-info">
+        <div class="fig-filename">shap_全特征佐证_T1/T2.png ×2 <span class="badge old">已有</span></div>
+        <div class="fig-desc">全特征赛道 SHAP：T1 Wake_Up_Minutes 支配 (第1位)；T2 Fitness_Level 降至中等 (KMeans分箱后不再恒等)</div>
+        <div class="fig-location">📍 §6.4 全特征赛道的泄露特征SHAP分析 — 三个 bullet 列表中</div>
+      </div>
+      <div class="fig-latex">\begin{figure}[H]\centering
+\includegraphics[width=0.48\textwidth]{figs/shap_全特征佐证_T1.png}
+\includegraphics[width=0.48\textwidth]{figs/shap_全特征佐证_T2.png}
+\caption{图6-4 全特征赛道 SHAP 佐证}\end{figure}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-5</div>
+      <div class="fig-info">
+        <div class="fig-filename">T1_③dependence_Productivity.png <span class="badge old">已有</span></div>
+        <div class="fig-desc">T1 Productivity_Score SHAP dependence：分数越高 SHAP→正向 (早起)</div>
+        <div class="fig-location">📍 §6.6 T1 bullet — "T1_③dependence_Productivity.png 显示..." 句后</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.55\textwidth]{figs/T1_③dependence_Productivity.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-6</div>
+      <div class="fig-info">
+        <div class="fig-filename">T1_④force_早起者/非早起者/边界样本.png ×3 <span class="badge old">已有</span></div>
+        <div class="fig-desc">T1 SHAP Force 图：典型早起者、非早起者、决策边界样本 (p≈0.5)</div>
+        <div class="fig-location">📍 §6.6 T1 bullet — "T1_④force_*.png 三张分别展示..." 句后</div>
+      </div>
+      <div class="fig-latex">\begin{figure}[H]\centering
+\includegraphics[width=0.32\textwidth]{figs/T1_④force_早起者.png}
+\includegraphics[width=0.32\textwidth]{figs/T1_④force_非早起者.png}
+\includegraphics[width=0.32\textwidth]{figs/T1_④force_边界样本.png}
+\caption{图6-6 T1 SHAP Force 图}\end{figure}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-7</div>
+      <div class="fig-info">
+        <div class="fig-filename">T1_⑤decision_高不确定样本.png <span class="badge old">已有</span></div>
+        <div class="fig-desc">T1 高不确定性样本 (p≈0.5) 决策路径：分歧主要发生在睡眠节律特征取值中间带的个体</div>
+        <div class="fig-location">📍 §6.6 T1 bullet — "T1_⑤decision_高不确定样本.png 显示..." 句后</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.8\textwidth]{figs/T1_⑤decision_高不确定样本.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-8</div>
+      <div class="fig-info">
+        <div class="fig-filename">T2_③PDP_BMI/Exercise_Frequency/Sleep_Quality.png ×3 <span class="badge old">已有</span></div>
+        <div class="fig-desc">T2 偏依赖曲线：BMI→P(Poor)、Exercise_Frequency→P(Excellent)、Sleep_Quality→P(Good)</div>
+        <div class="fig-location">📍 §6.6 T2 bullet — "T2_③PDP_*.png 分别给出..." 句后</div>
+      </div>
+      <div class="fig-latex">\begin{figure}[H]\centering
+\includegraphics[width=0.32\textwidth]{figs/T2_③PDP_BMI_PPoor.png}
+\includegraphics[width=0.32\textwidth]{figs/T2_③PDP_Exercise_Frequency_Per_Week_PExcellent.png}
+\includegraphics[width=0.32\textwidth]{figs/T2_③PDP_Sleep_Quality_Score_PGood.png}
+\caption{图6-8 T2 偏依赖曲线}\end{figure}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-9</div>
+      <div class="fig-info">
+        <div class="fig-filename">T2_⑥PDP2D_Age×BMI_PGood.png <span class="badge old">已有</span></div>
+        <div class="fig-desc">T2 Age×BMI 联合 PDP (2D热力图)：展示交互效应，与 F27_age_bmi_interact 工程特征呼应</div>
+        <div class="fig-location">📍 §6.6 T2 bullet — "T2_⑥PDP2D_Age×BMI_PGood.png 展示..." 句后</div>
+      </div>
+      <div class="fig-latex">\includegraphics[width=0.5\textwidth]{figs/T2_⑥PDP2D_Age×BMI_PGood.png}</div>
+    </div>
+
+    <div class="fig-row">
+      <div class="fig-number">图 6-10</div>
+      <div class="fig-info">
+        <div class="fig-filename">T3_③PDP_BMI + Blood_Sugar_Level.png ×2 <span class="badge old">已有</span></div>
+        <div class="fig-desc">T3 偏依赖曲线：BMI→P(Average) 与 Blood_Sugar_Level→P(Excellent)；LR 的 PDP 为直线 = 线性结构最直接的可视化证据</div>
+        <div class="fig-location">📍 §6.6 T3 bullet — "T3_③PDP_*.png 给出..." 句后</div>
+      </div>
+      <div class="fig-latex">\begin{figure}[H]\centering
+\includegraphics[width=0.48\textwidth]{figs/T3_③PDP_BMI.png}
+\includegraphics[width=0.48\textwidth]{figs/T3_③PDP_Blood_Sugar_Level.png}
+\caption{图6-10 T3 偏依赖曲线}\end{figure}</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========= FOOTER ========= -->
+<div style="text-align:center; margin-top:40px; padding:24px; color:var(--muted); font-size:.85em;">
+  <p>Team# DATA2600953 · 2026年第五届"创新杯"大学生大数据挑战赛 A题</p>
+  <p>所有图片存放路径：<code>D:\Claude code\创新杯大数据\Day-5\paper_build\figs\</code></p>
+  <p>生成时间：2026-07-27</p>
+</div>
+
+</div>
+</body>
+</html>
